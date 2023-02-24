@@ -9,7 +9,7 @@ def create_file(data=''):
 
 
 def delete_file(path):
-    if os.path.exists(path) and os.path.isfile(path):
+    if os.path.isfile(path):
         os.remove(path)
     if os.path.exists(path) and os.path.isdir(path):
         shutil.rmtree(path)
@@ -18,10 +18,9 @@ def delete_file(path):
 def read_file(path):
     with open(path) as f:
         content = f.read()
-    return content
+        return content
 
 
 def get_metadata(path):
     ...
 
-create_file()

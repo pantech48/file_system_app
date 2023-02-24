@@ -1,14 +1,20 @@
 import argparse
 import file_service
+import os
 
 
 parser = argparse.ArgumentParser(description='App for working with files.')
-parser.add_argument('create')
-parser.add_argument('-delete')
-parser.add_argument('-read')
+parser.add_argument('--create', default='', help='Creates a file with given data. Default data - empty string.')
+parser.add_argument('--delete', help='Deletes file with given path.')
+parser.add_argument('--read', help='Reads content of given file.')
 
 args = parser.parse_args()
 
 
-if __name__ == "__main":
-    ...
+if __name__ == "__main__":
+    if args.create:
+        file_service.create_file(args.create)
+    if args.delete:
+        file_service.delete_file(args.delete)
+    if args.read:
+        file_service.read_file(args.read)
