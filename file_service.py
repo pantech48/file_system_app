@@ -1,4 +1,5 @@
 from utils import generate_filename
+from pathlib import Path
 import os
 import shutil
 
@@ -24,3 +25,9 @@ def read_file(path):
 def get_metadata(path):
     ...
 
+
+path = Path('main.py')
+file_stats = path.stat()
+file_stat = os.stat('__init__.py')
+print(file_stat.st_size)
+a = 'as'
