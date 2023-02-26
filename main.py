@@ -1,12 +1,13 @@
 import argparse
 import file_service
-import os
+import utils
 
 
 parser = argparse.ArgumentParser(description='App for working with files.')
 parser.add_argument('--create', default='', help='Creates a file with given data. Default data - empty string.')
 parser.add_argument('--delete', help='Deletes file with given path.')
 parser.add_argument('--read', help='Reads content of given file.')
+parser.add_argument('--metadata', help="Returns file's metadata.")
 
 args = parser.parse_args()
 
@@ -18,3 +19,5 @@ if __name__ == "__main__":
         file_service.delete_file(args.delete)
     if args.read:
         file_service.read_file(args.read)
+    if args.metadata:
+        utils.metadata_str(file_service.get_metadata(args.metadata))
