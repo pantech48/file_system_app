@@ -15,9 +15,9 @@ args = parser.parse_args()
 if __name__ == "__main__":
     if args.create:
         file_service.create_file(args.create)
-    if args.delete:
+    elif args.delete:
         file_service.delete_file(args.delete)
-    if args.read:
+    elif args.read:
         file_service.read_file(args.read)
-    if args.metadata:
+    elif args.metadata:
         utils.metadata_str(file_service.get_metadata(args.metadata))

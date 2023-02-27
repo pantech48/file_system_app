@@ -1,4 +1,5 @@
 {
-  "ascii_and_digits": "abcdefghijklmnopqrstuvwxyz0123456789",
-  "date_format": "%Y-%m-%d %H:%M:%S"
+  "characters_for_generate_filename_function": "abcdefghijklmnopqrstuvwxyz0123456789",
+  "date_format": "%Y-%m-%d %H:%M:%S",
+  "length_of_filename": 10
 }

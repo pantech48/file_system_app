@@ -1,11 +1,11 @@
 import random
+
 from config_parser import config
 
 
-# todo: move in config file symbols var
 def generate_filename():
-    symbols = config()["ascii_and_digits"]
-    filename = ''.join(random.choice(symbols) for _ in range(10))
+    symbols = config()["characters_for_generate_filename_function"]
+    filename = ''.join(random.choice(symbols) for _ in range(config()["length_of_filename"]))
     return filename
 
 
