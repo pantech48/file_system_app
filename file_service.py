@@ -8,6 +8,14 @@ from config_parser import config
 
 
 def create_file(data=''):
+    """
+    Creates file with randomly generated name in the current working directory with provided data.
+
+    :param data: Optional data to write to the file.
+    :type data: str
+    :raises FileExistsError: If a file with the generated filename already exists.
+    :return: None
+    """
     try:
         file_name = generate_filename()
         with open(file_name, 'w') as f:
@@ -17,6 +25,15 @@ def create_file(data=''):
 
 
 def delete_file(path):
+    """
+    Deletes a file or directory at the given path.
+
+    :param path: Path to the file or directory to delete.
+    :type path: str
+    :raises FileExistsError: If the file or directory does not exist.
+    :raises PermissionError: If the user does not have permissions to delete the file or directory.
+    :return: None
+    """
     try:
         if os.path.isfile(path):
             os.remove(path)
@@ -29,6 +46,15 @@ def delete_file(path):
 
 
 def read_file(path):
+    """
+    Reads the contents of a file at the given path.
+
+    :param path: Path to the file to read.
+    :type path: str
+    :raises FileNotFoundError: If the file does not exist.
+    :raises PermissionError: If the user does not have permissions to read the file.
+    :return: bytes: The contents of the file as bytes.
+    """
     try:
         with open(path, 'rb') as f:
             content = f.read()
@@ -40,6 +66,21 @@ def read_file(path):
 
 
 def get_metadata(path):
+    """
+    Returns metadata about a file at the given path.
+
+    :param path: Path to the file to get metadata for.
+    :type path: str
+    :raises FileNotFoundError: If the file does not exist.
+    :return: dict: A dictionary containing the following metadata:
+                    - 'name': The name of the file.
+                    - 'format': The file format (extension).
+                    - 'size': The file size in bytes.
+                    - 'full_path': The absolute path to the file.
+                    - 'creation_date': The date the file was created.
+                    - 'last_access_date': The date the file was last accessed.
+                    - 'modification_date': The date the file was last modified.
+    """
     try:
         metadata = {}
         file_stats = os.stat(path)
@@ -62,3 +103,4 @@ def get_metadata(path):
 
     except FileNotFoundError:
         print(f"The file '{path}' does not exist.")
+
