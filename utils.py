@@ -1,9 +1,10 @@
 import random
+from typing import Dict
 
 from config_parser import config
 
 
-def generate_filename():
+def generate_filename() -> str:
     """
     Generates a random filename using the characters specified in the configuration data.
 
@@ -15,7 +16,7 @@ def generate_filename():
     return filename
 
 
-def metadata_str(metadata):
+def metadata_str(metadata: Dict[str, str]) -> None:
     """
     Prints a formatted string representation of the metadata dictionary.
 

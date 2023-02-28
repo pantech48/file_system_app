@@ -6,7 +6,7 @@ CONFIG_FILE = 'config.json'
 CONFIG_PATH = os.path.abspath(CONFIG_FILE)
 
 
-def read_json(file_path=CONFIG_FILE):
+def read_json(file_path: str = CONFIG_FILE) -> dict:
     """
     Reads and returns the JSON data from the file at the given path.
 
@@ -19,7 +19,7 @@ def read_json(file_path=CONFIG_FILE):
         return json.load(f)
 
 
-def config():
+def config() -> dict:
     """
     Returns the configuration data.
 

@@ -2,12 +2,13 @@ import os
 import shutil
 import datetime
 from pathlib import Path
+from typing import Dict
 
 from utils import generate_filename
 from config_parser import config
 
 
-def create_file(data=''):
+def create_file(data: str = '') -> None:
     """
     Creates file with randomly generated name in the current working directory with provided data.
 
@@ -24,7 +25,7 @@ def create_file(data=''):
         print("File already exists.")
 
 
-def delete_file(path):
+def delete_file(path: str) -> None:
     """
     Deletes a file or directory at the given path.
 
@@ -45,7 +46,7 @@ def delete_file(path):
         print(f'You do not have permissions to delete {path}.')
 
 
-def read_file(path):
+def read_file(path: str) -> bytes:
     """
     Reads the contents of a file at the given path.
 
@@ -65,7 +66,7 @@ def read_file(path):
         print(f'You do not have permissions to read {path}.')
 
 
-def get_metadata(path):
+def get_metadata(path: str) -> Dict[str, str]:
     """
     Returns metadata about a file at the given path.
 
@@ -82,7 +83,6 @@ def get_metadata(path):
                     - 'modification_date': The date the file was last modified.
     """
     try:
-        metadata = {}
         file_stats = os.stat(path)
         file_name = Path(path).name
         _, file_format = os.path.splitext(path)
