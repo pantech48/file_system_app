@@ -1,7 +1,7 @@
 import random
 from typing import Dict
 
-from config_parser import config
+from config.config_parser import config
 
 
 def generate_filename() -> str:

@@ -3,10 +3,11 @@ import os
 
 
 CONFIG_FILE = 'config.json'
-CONFIG_PATH = os.path.abspath(CONFIG_FILE)
+CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), CONFIG_FILE))
+print(CONFIG_PATH)
 
 
-def read_json(file_path: str = CONFIG_FILE) -> dict:
+def read_json(file_path: str = CONFIG_PATH) -> dict:
     """
     Reads and returns the JSON data from the file at the given path.
 
@@ -30,7 +31,6 @@ def config() -> dict:
 
 
 _config = read_json()
-
 
 
 

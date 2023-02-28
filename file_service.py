@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Dict
 
 from utils import generate_filename
-from config_parser import config
+from config.config_parser import config
 
 
 def create_file(data: str = '') -> None:
