@@ -21,7 +21,7 @@ class Logger:
         setup(): Configures the logger with the specified configuration and returns the logger object.
     """
     def __init__(self, name: str = __name__, level: int = logging.DEBUG,
-                 log_format: str = config()["logger_formatter"], filename: str = "log.log") -> None:
+                 log_format: str = config()["logger_formatter"], filename: str = config()["logs_path"]) -> None:
         """
         Initializes the Logger object with the specified configuration.
 

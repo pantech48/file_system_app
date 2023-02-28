@@ -1,11 +1,13 @@
 import os
 import shutil
 import datetime
+import sys
 from pathlib import Path
 from typing import Dict
 
 from utils import generate_filename
 from config.config_parser import config
+from logs.logger import logger
 
 
 def create_file(data: str = '') -> None:
@@ -21,8 +23,10 @@ def create_file(data: str = '') -> None:
         file_name = generate_filename()
         with open(file_name, 'w') as f:
             f.write(data)
+            logger.info(f'File {file_name} was successfully created at path "{os.path.abspath(file_name)}"')
     except FileExistsError:
-        print("File already exists.")
+        logger.exception("File already exists.")
+        sys.exit(1)
 
 
 def delete_file(path: str) -> None:
@@ -38,12 +42,16 @@ def delete_file(path: str) -> None:
     try:
         if os.path.isfile(path):
             os.remove(path)
+            logger.info(f'File {path} was deleted successfully.')
         elif os.path.exists(path) and os.path.isdir(path):
             shutil.rmtree(path)
+            logger.info(f"Folder {path} was deleted successfully.")
     except FileExistsError:
-        print(f'File {path} not found.')
+        logger.exception(f'File {path} not found.')
+        sys.exit(1)
     except PermissionError:
-        print(f'You do not have permissions to delete {path}.')
+        logger.exception(f'You do not have permissions to delete {path}.')
+        sys.exit(1)
 
 
 def read_file(path: str) -> bytes:
@@ -59,11 +67,16 @@ def read_file(path: str) -> bytes:
     try:
         with open(path, 'rb') as f:
             content = f.read()
+            logger.info(f'Content of file {path}:'
+                        f'{content}')
+
             return content
-    except FileExistsError:
-        print(f'File {path} not found.')
+    except FileNotFoundError:
+        logger.exception(f'File {path} not found.')
+        sys.exit(1)
     except PermissionError:
-        print(f'You do not have permissions to read {path}.')
+        logger.exception(f'You do not have permissions to read {path}.')
+        sys.exit(1)
 
 
 def get_metadata(path: str) -> Dict[str, str]:
@@ -102,5 +115,6 @@ def get_metadata(path: str) -> Dict[str, str]:
         }
 
     except FileNotFoundError:
-        print(f"The file '{path}' does not exist.")
+        logger.exception(f"The file '{path}' does not exist.")
+        sys.exit(1)
 

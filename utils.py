@@ -2,6 +2,7 @@ import random
 from typing import Dict
 
 from config.config_parser import config
+from logs.logger import logger
 
 
 def generate_filename() -> str:
@@ -25,4 +26,4 @@ def metadata_str(metadata: Dict[str, str]) -> None:
     :return: None
     """
     for field, data in metadata.items():
-        print(field, ": ", data)
+        logger.info(f"{field}: {data}")
