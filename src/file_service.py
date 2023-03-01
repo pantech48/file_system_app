@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 from typing import Dict
 
-from utils import generate_filename
+from src.utils import generate_filename
 from config.config_parser import config
 from logs.logger import logger
 
@@ -46,7 +46,7 @@ def delete_file(path: str) -> None:
         elif os.path.exists(path) and os.path.isdir(path):
             shutil.rmtree(path)
             logger.info(f"Folder {path} was deleted successfully.")
-    except FileExistsError:
+    except FileNotFoundError:
         logger.exception(f'File {path} not found.')
         sys.exit(1)
     except PermissionError:
@@ -73,7 +73,7 @@ def read_file(path: str) -> bytes:
             return content
     except FileNotFoundError:
         logger.exception(f'File {path} not found.')
-        sys.exit(1)
+        #sys.exit(1)
     except PermissionError:
         logger.exception(f'You do not have permissions to read {path}.')
         sys.exit(1)
@@ -100,9 +100,9 @@ def get_metadata(path: str) -> Dict[str, str]:
         file_name = Path(path).name
         _, file_format = os.path.splitext(path)
         file_size = file_stats.st_size
-        creation_date = datetime.datetime.fromtimestamp(file_stats.st_ctime).strftime(config()["date_format"])
-        access_date = datetime.datetime.fromtimestamp(file_stats.st_atime).strftime(config()["date_format"])
-        modification_date = datetime.datetime.fromtimestamp(file_stats.st_mtime).strftime(config()["date_format"])
+        creation_date = datetime.datetime.fromtimestamp(file_stats.st_ctime).strftime(config()["UTILS"]["date_format"])
+        access_date = datetime.datetime.fromtimestamp(file_stats.st_atime).strftime(config()["UTILS"]["date_format"])
+        modification_date = datetime.datetime.fromtimestamp(file_stats.st_mtime).strftime(config()["UTILS"]["date_format"])
 
         return {
             'name': file_name,
@@ -117,4 +117,3 @@ def get_metadata(path: str) -> Dict[str, str]:
     except FileNotFoundError:
         logger.exception(f"The file '{path}' does not exist.")
         sys.exit(1)
-

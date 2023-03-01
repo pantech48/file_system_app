@@ -12,8 +12,8 @@ def generate_filename() -> str:
     :return: A randomly generated filename.
     :rtype: str
     """
-    symbols = config()["characters_for_generate_filename_function"]
-    filename = ''.join(random.choice(symbols) for _ in range(config()["length_of_filename"]))
+    symbols = config()["UTILS"]["characters_for_generate_filename_function"]
+    filename = ''.join(random.choice(symbols) for _ in range(config()["UTILS"]["length_of_generate_filename_func"]))
     return filename
 
 

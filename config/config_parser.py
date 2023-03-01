@@ -4,7 +4,6 @@ import os
 
 CONFIG_FILE = 'config.json'
 CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), CONFIG_FILE))
-print(CONFIG_PATH)
 
 
 def read_json(file_path: str = CONFIG_PATH) -> dict:

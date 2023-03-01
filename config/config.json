@@ -1,7 +1,13 @@
-{
-  "characters_for_generate_filename_function": "abcdefghijklmnopqrstuvwxyz0123456789",
-  "date_format": "%Y-%m-%d %H:%M:%S",
-  "length_of_filename": 10,
-  "logger_formatter": "%(asctime)s | %(name)s | %(levelname)s | %(message)s",
-  "logs_path": "logs/log.log"
+{ "APP": {
+  "working_directory": "C:\\Users\\YPutrin\\Course_007\\file_system_app"
+},
+  "UTILS": {
+    "characters_for_generate_filename_function": "abcdefghijklmnopqrstuvwxyz0123456789",
+    "length_of_generate_filename_func": 10,
+    "date_format": "%Y-%m-%d %H:%M:%S"
+  },
+  "LOGGER": {
+    "logger_formatter": "%(asctime)s | %(name)s | %(levelname)s | %(message)s",
+    "logs_path": "log.log"
+  }
 }
