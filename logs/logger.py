@@ -7,8 +7,6 @@ class Logger:
     """
     A class for configuring a logger with a specified name, level, log format, and filename.
 
-    python
-    Copy code
     Attributes:
         name (str): The name of the logger. Defaults to the name of the current module.
         level (int): The logging level. Defaults to logging.DEBUG.
