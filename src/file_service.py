@@ -73,7 +73,7 @@ def read_file(path: str) -> bytes:
             return content
     except FileNotFoundError:
         logger.exception(f'File {path} not found.')
-        #sys.exit(1)
+        sys.exit(1)
     except PermissionError:
         logger.exception(f'You do not have permissions to read {path}.')
         sys.exit(1)
