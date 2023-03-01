@@ -1,6 +1,5 @@
 import sys
 import os
-import pytest
 
 sys.path.append(r"C:\\Users\\YPutrin\\Course_007\\file_system_app")
 

@@ -1,5 +1,4 @@
 import logging
-from typing import Any, Optional
 
 from config.config_parser import config
 

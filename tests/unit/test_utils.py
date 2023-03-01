@@ -1,5 +1,3 @@
-import pytest
-import os
 import sys
 
 # todo: resolve import error with sys.path variable in different way
