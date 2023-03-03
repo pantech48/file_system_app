@@ -31,7 +31,7 @@ class FileSystem:
                 logger.info(f'File {file_name} was successfully created at path "{os.path.abspath(file_name)}"')
         except FileExistsError:
             logger.exception("File already exists.")
-            sys.exit(1)
+            raise
 
     @staticmethod
     def delete_file(path: str) -> None:
@@ -53,10 +53,10 @@ class FileSystem:
                 logger.info(f"Folder {path} was deleted successfully.")
         except FileNotFoundError:
             logger.exception(f'File {path} not found.')
-            sys.exit(1)
+            raise
         except PermissionError:
             logger.exception(f'You do not have permissions to delete {path}.')
-            sys.exit(1)
+            raise
 
     @staticmethod
     def read_file(path: str) -> bytes:
@@ -78,10 +78,10 @@ class FileSystem:
                 return content
         except FileNotFoundError:
             logger.exception(f'File {path} not found.')
-            sys.exit(1)
+            raise
         except PermissionError:
             logger.exception(f'You do not have permissions to read {path}.')
-            sys.exit(1)
+            raise
 
     @staticmethod
     def get_metadata(path: str) -> Dict[str, str]:
@@ -121,4 +121,7 @@ class FileSystem:
 
         except FileNotFoundError:
             logger.exception(f"The file '{path}' does not exist.")
-            sys.exit(1)
+            raise
+
+f = FileSystem()
+f.delete_file('C:\\Users\\User\\Desktop\\test2123.txt')
