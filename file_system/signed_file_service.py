@@ -52,7 +52,6 @@ class SignedFileSystem(FileSystem):
     def validate_signature(self, path: str) -> bool:
         """
         Validates the signature of a file at the given path.
-        :param signature: Signature to validate.
         :param path: Path to the file to validate the signature of.
         :return: True if the signature is valid, False otherwise.
         :raises FileNotFoundError: If the file at the given path is not found.
