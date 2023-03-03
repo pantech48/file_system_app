@@ -8,7 +8,7 @@
   },
   "LOGGER": {
     "logger_formatter": "%(asctime)s | %(name)s | %(levelname)s | %(message)s",
-    "logs_path": "logs\\log.log"
+    "logs_path": "log.log"
   },
   "MAKE": {
     "reports_path": "reports\\",

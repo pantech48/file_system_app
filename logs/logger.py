@@ -2,6 +2,7 @@
 A module for configuring a logger with a specified name, level, log format, and filename.
 """
 import logging
+import os.path
 
 from config.config_parser import config
 
@@ -38,7 +39,7 @@ class Logger:
         self.name = name
         self.level = level
         self.log_format = logging.Formatter(log_format)
-        self.filename = filename
+        self.filename_path = os.path.abspath(os.path.join(os.path.dirname(__file__), filename))
         self.logger = logging.getLogger(self.name)
 
     def setup(self) -> logging.Logger:
@@ -50,7 +51,7 @@ class Logger:
         """
         if not self.logger.handlers:
             self.logger.setLevel(self.level)
-            file_handler = logging.FileHandler(self.filename)
+            file_handler = logging.FileHandler(self.filename_path)
             file_handler.setLevel(self.level)
             file_handler.setFormatter(self.log_format)
 
