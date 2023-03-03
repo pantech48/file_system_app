@@ -1,3 +1,4 @@
+""" This module contains functions for running tests and coverage, and for running flake8 static code analyzer. """
 import subprocess
 import sys
 

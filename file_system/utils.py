@@ -1,5 +1,7 @@
+"""
+Utility functions for the file_system module.
+"""
 import random
-from typing import Dict
 
 from config.config_parser import config
 from logs.logger import logger
@@ -17,7 +19,7 @@ def generate_filename() -> str:
     return filename
 
 
-def metadata_str(metadata: Dict[str, str]) -> None:
+def metadata_str(metadata: dict[str, str]) -> None:
     """
     Prints a formatted string representation of the metadata dictionary.
 

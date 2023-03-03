@@ -1,5 +1,6 @@
+"""Main module for working with files."""
 import argparse
-from src import file_service, utils
+from file_system import file_service, utils
 
 parser = argparse.ArgumentParser(description='App for working with files.')
 parser.add_argument('--create', default='', help='Creates a file with given data. Default data - empty string.')

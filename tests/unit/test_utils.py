@@ -4,7 +4,7 @@ import sys
 sys.path.append(r"C:\\Users\\YPutrin\\Course_007\\file_system_app")
 
 from config.config_parser import config
-from src.utils import generate_filename
+from file_system.utils import generate_filename
 
 
 def test_generate_filename():

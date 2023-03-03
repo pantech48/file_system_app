@@ -1,8 +1,11 @@
+"""
+This module contains the SignedFileSystem class, which is a file system that verifies the signature of files.
+"""
 import hashlib
 import base64
 import os
 
-from src.file_service import FileSystem
+from file_system.file_service import FileSystem
 
 
 class SignedFileSystem(FileSystem):
@@ -55,4 +58,5 @@ class SignedFileSystem(FileSystem):
             if not SignedFileSystem.verify_signature(path, signature):
                 raise ValueError('The signature is not valid.')
         return content
+
 

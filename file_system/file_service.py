@@ -1,3 +1,6 @@
+"""
+This module contains the FileSystem class which provides methods for creating, reading, deleting and getting metadata
+"""
 import os
 import shutil
 import datetime
@@ -5,7 +8,7 @@ import sys
 from pathlib import Path
 from typing import Dict
 
-from src.utils import generate_filename
+from file_system.utils import generate_filename
 from config.config_parser import config
 from logs.logger import logger
 

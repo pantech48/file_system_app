@@ -1,3 +1,6 @@
+"""
+A module for configuring a logger with a specified name, level, log format, and filename.
+"""
 import logging
 
 from config.config_parser import config

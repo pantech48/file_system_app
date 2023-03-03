@@ -4,7 +4,7 @@ import os
 sys.path.append(r"C:\\Users\\YPutrin\\Course_007\\file_system_app")
 
 from tests.fixtures import create_file_for_testing, remove_last_created_file
-from src.file_service import delete_file, read_file, get_metadata, create_file
+from file_system.file_service import delete_file, read_file, get_metadata, create_file
 from config.config_parser import config
 
 

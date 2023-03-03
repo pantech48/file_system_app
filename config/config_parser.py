@@ -1,3 +1,6 @@
+"""
+This module contains the functions for reading the configuration data from the JSON file.
+"""
 import json
 import os
 
