@@ -3,10 +3,12 @@ This module contains the functions for reading the configuration data from the J
 """
 import json
 import os
+from pathlib import Path
 
 
 CONFIG_FILE = 'config.json'
 CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), CONFIG_FILE))
+WORKING_DIR = Path(__file__).parent.parent
 
 
 def read_json(file_path: str = CONFIG_PATH) -> dict:
@@ -33,6 +35,5 @@ def config() -> dict:
 
 
 _config = read_json()
-
-
+_config["APP"]["working_directory"] = str(WORKING_DIR)
 

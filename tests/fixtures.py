@@ -2,8 +2,11 @@ import pytest
 import os
 import hashlib
 from Crypto.Cipher import AES
+from pathlib import Path
 
 from config.config_parser import config
+from file_system.file_service import FileSystem
+from logs.logger import logger
 
 
 @pytest.fixture
@@ -44,7 +47,8 @@ def create_file_for_testing():
 
 @pytest.fixture
 def get_name_of_last_created_file():
-    files = os.listdir(config()['APP']['working_directory'])
+    file_storage = FileSystem.FILE_STORAGE_PATH
+    files = os.listdir(file_storage)
     files.sort(key=os.path.getctime)
     return files[-1]
 
@@ -52,6 +56,10 @@ def get_name_of_last_created_file():
 @pytest.fixture
 def remove_last_created_file():
     yield
-    files = os.listdir(config()['APP']['working_directory'])
+    file_storage = FileSystem.FILE_STORAGE_PATH
+    files = [os.path.join(FileSystem.FILE_STORAGE_PATH, file) for file in os.listdir(file_storage)]
+    logger.info(f"Files in file storage: {files}")
     files.sort(key=os.path.getctime)
-    os.remove(files[-1])
+    last_created_file = files[-1]
+    logger.info(f"Last created file: {last_created_file}")
+    os.remove(last_created_file)

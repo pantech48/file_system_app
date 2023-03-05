@@ -29,9 +29,9 @@ def test_sign_file(create_file_for_testing):
 
 
 def test_create_signed_file(remove_last_created_file):
-    file_name = SignedFileSystem.create_file(b'test data')
+    file_path = SignedFileSystem.create_file(b'test data')
     test_signature = SignedFileSystem.generate_signature(b'test data')
-    with open(file_name, 'rb') as f:
+    with open(file_path, 'rb') as f:
         file_data = f.read()
         assert file_data[:config()['SIGNED_FILE_SYSTEM']['len_bytes_for_hash']] == test_signature, \
             "Signature is not signed correctly."

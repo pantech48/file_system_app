@@ -1,9 +1,10 @@
 """
 This module contains the EncryptedFileSystem class that is a file system
-that encrypts files with AES encryption.
+that encrypts file_storage with AES encryption.
 """
 from file_system.file_service import FileSystem
 from Crypto.Cipher import AES
+from pathlib import Path
 
 
 from file_system.utils import generate_filename
@@ -13,7 +14,7 @@ from config.config_parser import config
 
 class EncryptedFileSystem(FileSystem):
     """
-    This class is a file system that encrypts files with AES encryption.
+    This class is a file system that encrypts file_storage with AES encryption.
     """
     KEY = config()["ENCRYPTED_FILE_SYSTEM"]["AES_key"].encode()
 
@@ -25,14 +26,15 @@ class EncryptedFileSystem(FileSystem):
         :return: Name of the created file.
         """
         file_name = generate_filename()
+        path = Path.joinpath(FileSystem.FILE_STORAGE_PATH, file_name)
         key = EncryptedFileSystem.KEY
         cipher = AES.new(key, AES.MODE_EAX)
         ciphertext, tag = cipher.encrypt_and_digest(data)
         try:
-            with open(file_name, 'wb') as f:
+            with open(path, 'wb') as f:
                 [f.write(x) for x in (cipher.nonce, tag, ciphertext)]
             logger.info(f"Created file {file_name} with encrypted data.")
-            return file_name
+            return str(path)
         except FileExistsError:
             logger.exception(f"File {file_name} already exists.")
             raise

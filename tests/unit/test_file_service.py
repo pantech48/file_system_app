@@ -7,13 +7,18 @@ sys.path.append(r"C:\\Users\\YPutrin\\Course_007\\file_system_app")
 from tests.fixtures import create_file_for_testing, remove_last_created_file
 from file_system.file_service import FileSystem
 from config.config_parser import config
+from logs.logger import logger
 
 
 def test_create_file(remove_last_created_file):
-    file_counter = len(os.listdir(config()['APP']['working_directory']))
+    file_storage = FileSystem.FILE_STORAGE_PATH
+    logger.info(f"File storage path: {file_storage}")
+    file_counter = len(os.listdir(file_storage))
+    logger.info(f"File counter: {file_counter}")
     FileSystem.create_file(b'test data')
-    assert len(os.listdir(config()['APP']['working_directory'])) == file_counter + 1, \
+    assert len(os.listdir(file_storage)) == file_counter + 1, \
         "File was not created."
+
 
 
 def test_delete_file(create_file_for_testing):

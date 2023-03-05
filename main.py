@@ -1,11 +1,11 @@
-"""Main module for working with files."""
+"""Main module for working with file_storage."""
 import argparse
 
 from file_system.file_service import FileSystem
 from file_system import utils
 
 
-parser = argparse.ArgumentParser(description='App for working with files.')
+parser = argparse.ArgumentParser(description='App for working with file_storage.')
 parser.add_argument('--create', default='', help='Creates a file with given data. Default data - empty string.')
 parser.add_argument('--delete', help='Deletes file with given path.')
 parser.add_argument('--read', help='Reads content of given file.')

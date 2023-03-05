@@ -15,10 +15,10 @@ def test_aes_key():
     assert EncryptedFileSystem.KEY == key, "The AES key is not correct."
 
 
-def test_create_file(remove_last_created_file):
+def test_create_encrypted_file(remove_last_created_file):
     data = b'test data'
-    file_name = EncryptedFileSystem.create_file(data)
-    with open(file_name, 'rb') as f:
+    file_path = EncryptedFileSystem.create_file(data)
+    with open(file_path, 'rb') as f:
         file_content = f.read()
         assert file_content != data, "The data is not encrypted."
         with pytest.raises(UnicodeDecodeError):
@@ -26,7 +26,7 @@ def test_create_file(remove_last_created_file):
 
 
 @pytest.mark.parametrize('create_encrypted_aes_file', [b'test data'], indirect=True)
-def test_read_file(create_encrypted_aes_file):
+def test_read_encrypted_file(create_encrypted_aes_file):
     file_content = EncryptedFileSystem.read_file('test_encrypted')
     assert file_content == b'test data', "The data is not decrypted."
     with pytest.raises(FileNotFoundError):

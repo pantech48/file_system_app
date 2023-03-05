@@ -13,6 +13,8 @@ from logs.logger import logger
 
 
 class FileSystem:
+    FILE_STORAGE_PATH = Path(config()["APP"]["working_directory"], config()["APP"]["file_storage_folder"])
+
     @staticmethod
     def create_file(data: bytes = '') -> str:
         """
@@ -25,10 +27,11 @@ class FileSystem:
         """
         try:
             file_name = generate_filename()
-            with open(file_name, 'wb') as f:
+            path = Path.joinpath(FileSystem.FILE_STORAGE_PATH, file_name)
+            with open(path, 'wb') as f:
                 f.write(data)
-                logger.info(f'File {file_name} was successfully created at path "{os.path.abspath(file_name)}"')
-            return file_name
+                logger.info(f'File {file_name} was successfully created at path "{path}"')
+            return str(path)
         except FileExistsError:
             logger.exception("File already exists.")
             raise

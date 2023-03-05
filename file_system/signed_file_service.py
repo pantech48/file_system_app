@@ -1,8 +1,9 @@
 """
-This module contains the SignedFileSystem class, which is a file system that verifies the signature of files.
+This module contains the SignedFileSystem class, which is a file system that verifies the signature of file_storage.
 """
 import hashlib
 import os
+from pathlib import Path
 
 from file_system.file_service import FileSystem
 from file_system.utils import generate_filename
@@ -12,7 +13,7 @@ from config.config_parser import config
 
 class SignedFileSystem(FileSystem):
     """
-    This class is a file system that verifies the signature of files.
+    This class is a file system that verifies the signature of file_storage.
     """
     SECRET_KEY = config()["SIGNED_FILE_SYSTEM"]["secret_key"]
 
@@ -78,12 +79,13 @@ class SignedFileSystem(FileSystem):
         """
         try:
             file_name = generate_filename()
-            with open(file_name, 'wb') as f:
+            path = Path.joinpath(FileSystem.FILE_STORAGE_PATH, file_name)
+            with open(path, 'wb') as f:
                 signature = SignedFileSystem.generate_signature(data)
                 f.write(signature)
                 f.write(data)
                 logger.info(f'Signed file {file_name} was successfully created at path "{os.path.abspath(file_name)}"')
-            return file_name
+            return str(path)
         except FileExistsError:
             logger.exception("File already exists.")
             raise
