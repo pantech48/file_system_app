@@ -11,27 +11,28 @@ from config.config_parser import config
 
 def test_create_file(remove_last_created_file):
     file_counter = len(os.listdir(config()['APP']['working_directory']))
-    FileSystem.create_file('test data')
-    assert len(os.listdir(config()['APP']['working_directory'])) == file_counter + 1
+    FileSystem.create_file(b'test data')
+    assert len(os.listdir(config()['APP']['working_directory'])) == file_counter + 1, \
+        "File was not created."
 
 
 def test_delete_file(create_file_for_testing):
     FileSystem.delete_file('test.txt')
-    assert not os.path.exists('test.txt')
+    assert not os.path.exists('test.txt'), "File was not deleted."
 
 
 def test_read_file(create_file_for_testing):
     FileSystem.read_file('test.txt')
-    assert FileSystem.read_file('test.txt') == b'test data'
+    assert FileSystem.read_file('test.txt') == b'test data', "File was not read correctly."
     with pytest.raises(Exception):
         FileSystem.read_file('test1.txt')
 
 
 def test_get_metadata(create_file_for_testing):
     FileSystem.get_metadata('test.txt')
-    assert FileSystem.get_metadata('test.txt')['name'] == 'test.txt'
-    assert FileSystem.get_metadata('test.txt')['format'] == '.txt'
-    assert FileSystem.get_metadata('test.txt')['size'] == "9 bytes"
+    assert FileSystem.get_metadata('test.txt')['name'] == 'test.txt', "File name is not correct."
+    assert FileSystem.get_metadata('test.txt')['format'] == '.txt', "File format is not correct."
+    assert FileSystem.get_metadata('test.txt')['size'] == "9 bytes", "File size is not correct."
     with pytest.raises(Exception):
         FileSystem.get_metadata('test1.txt')
 

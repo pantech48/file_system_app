@@ -4,7 +4,6 @@ that encrypts files with AES encryption.
 """
 from file_system.file_service import FileSystem
 from Crypto.Cipher import AES
-from Crypto.Random import get_random_bytes
 
 from file_system.utils import generate_filename
 from logs.logger import logger

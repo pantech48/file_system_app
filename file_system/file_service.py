@@ -14,7 +14,7 @@ from logs.logger import logger
 
 class FileSystem:
     @staticmethod
-    def create_file(data: bytes = '') -> None:
+    def create_file(data: bytes = '') -> str:
         """
         Creates file with randomly generated name in the current working directory with provided data.
 
@@ -28,6 +28,7 @@ class FileSystem:
             with open(file_name, 'wb') as f:
                 f.write(data)
                 logger.info(f'File {file_name} was successfully created at path "{os.path.abspath(file_name)}"')
+            return file_name
         except FileExistsError:
             logger.exception("File already exists.")
             raise
@@ -122,5 +123,3 @@ class FileSystem:
             logger.exception(f"The file '{path}' does not exist.")
             raise
 
-f = FileSystem()
-f.delete_file('C:\\Users\\User\\Desktop\\test2123.txt')

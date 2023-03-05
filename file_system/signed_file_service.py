@@ -70,7 +70,7 @@ class SignedFileSystem(FileSystem):
             raise
 
     @staticmethod
-    def create_file(data: bytes = b'') -> None:
+    def create_file(data: bytes = b'') -> str:
         """ Creates a file with the provided data and signs it.
         :param data: Data to write to the file.
         :return: None
@@ -83,6 +83,7 @@ class SignedFileSystem(FileSystem):
                 f.write(signature)
                 f.write(data)
                 logger.info(f'Signed file {file_name} was successfully created at path "{os.path.abspath(file_name)}"')
+            return file_name
         except FileExistsError:
             logger.exception("File already exists.")
             raise
@@ -100,21 +101,14 @@ class SignedFileSystem(FileSystem):
                 err_message = "Invalid signature"
                 logger.exception(err_message)
                 raise ValueError(err_message)
-            return super().read_file(path)[config()['SIGNED_FILE_SYSTEM']['len_bytes_for_hash']:]
+            return FileSystem.read_file(path)[config()['SIGNED_FILE_SYSTEM']['len_bytes_for_hash']:]
         else:
-            assumed_signature = super().read_file(path)[:config()['SIGNED_FILE_SYSTEM']['len_bytes_for_hash']]
-            file_content = super().read_file(path)[config()['SIGNED_FILE_SYSTEM']['len_bytes_for_hash']:]
+            assumed_signature = FileSystem.read_file(path)[:config()['SIGNED_FILE_SYSTEM']['len_bytes_for_hash']]
+            file_content = FileSystem.read_file(path)[config()['SIGNED_FILE_SYSTEM']['len_bytes_for_hash']:]
             if assumed_signature == SignedFileSystem.generate_signature(file_content):
                 err_message = "This file is signed, you need to provide secret key to access it."
                 logger.exception(err_message)
                 raise ValueError(err_message)
-            return super().read_file(path)
+            return FileSystem.read_file(path)
 
-
-
-
-sf = SignedFileSystem()
-f = FileSystem()
-#sf.create_file(b'Hello, world!')
-FileSystem.read_file(r'C:\Users\YPutrin\Course_007\file_system_app\file_system\08xmm63tvk')
 

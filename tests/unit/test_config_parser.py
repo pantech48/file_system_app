@@ -6,9 +6,9 @@ from config.config_parser import config, read_json, _config
 
 
 def test_read_json():
-    assert read_json() == config()
+    assert read_json() == config(), "Config is not read correctly."
 
 
 def test_config():
-    assert type(config()) == dict
-    assert config() == _config
+    assert type(config()) == dict, "Config is not a dictionary."
+    assert config() == _config, "Config is not a singleton."

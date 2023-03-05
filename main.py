@@ -1,6 +1,9 @@
 """Main module for working with files."""
 import argparse
-from file_system import file_service, utils
+
+from file_system.file_service import FileSystem
+from file_system import utils
+
 
 parser = argparse.ArgumentParser(description='App for working with files.')
 parser.add_argument('--create', default='', help='Creates a file with given data. Default data - empty string.')
@@ -13,10 +16,10 @@ args = parser.parse_args()
 
 if __name__ == "__main__":
     if args.create:
-        file_service.create_file(args.create)
+        FileSystem.create_file(args.create)
     elif args.delete:
-        file_service.delete_file(args.delete)
+        FileSystem.delete_file(args.delete)
     elif args.read:
-        file_service.read_file(args.read)
+        FileSystem.read_file(args.read)
     elif args.metadata:
-        utils.metadata_str(file_service.get_metadata(args.metadata))
+        utils.metadata_str(FileSystem.get_metadata(args.metadata))
