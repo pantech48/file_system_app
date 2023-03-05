@@ -58,8 +58,6 @@ def remove_last_created_file():
     yield
     file_storage = FileSystem.FILE_STORAGE_PATH
     files = [os.path.join(FileSystem.FILE_STORAGE_PATH, file) for file in os.listdir(file_storage)]
-    logger.info(f"Files in file storage: {files}")
     files.sort(key=os.path.getctime)
     last_created_file = files[-1]
-    logger.info(f"Last created file: {last_created_file}")
     os.remove(last_created_file)

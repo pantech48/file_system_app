@@ -20,7 +20,6 @@ def test_create_file(remove_last_created_file):
         "File was not created."
 
 
-
 def test_delete_file(create_file_for_testing):
     FileSystem.delete_file('test.txt')
     assert not os.path.exists('test.txt'), "File was not deleted."

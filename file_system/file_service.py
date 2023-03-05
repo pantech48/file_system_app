@@ -29,7 +29,7 @@ class FileSystem:
             file_name = generate_filename()
             path = Path.joinpath(FileSystem.FILE_STORAGE_PATH, file_name)
             with open(path, 'wb') as f:
-                f.write(data)
+                f.write(data.encode() if isinstance(data, str) else data)
                 logger.info(f'File {file_name} was successfully created at path "{path}"')
             return str(path)
         except FileExistsError:
