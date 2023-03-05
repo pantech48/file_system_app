@@ -15,5 +15,12 @@
     "flake8_report_name": "flake8_report.txt",
     "coverage_report_folder": "coverage_report\\",
     "flake8_excluded_dirs": ["\\env"]
+  },
+  "SIGNED_FILE_SYSTEM": {
+    "secret_key": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "len_bytes_for_hash": 32
+  },
+  "ENCRYPTED_FILE_SYSTEM": {
+    "AES_key": "SHY0bTKB7gLecaRv"
   }
 }

@@ -4,7 +4,6 @@ This module contains the FileSystem class which provides methods for creating, r
 import os
 import shutil
 import datetime
-import sys
 from pathlib import Path
 from typing import Dict
 
@@ -15,7 +14,7 @@ from logs.logger import logger
 
 class FileSystem:
     @staticmethod
-    def create_file(data: str = '') -> None:
+    def create_file(data: bytes = '') -> None:
         """
         Creates file with randomly generated name in the current working directory with provided data.
 
@@ -26,7 +25,7 @@ class FileSystem:
         """
         try:
             file_name = generate_filename()
-            with open(file_name, 'w') as f:
+            with open(file_name, 'wb') as f:
                 f.write(data)
                 logger.info(f'File {file_name} was successfully created at path "{os.path.abspath(file_name)}"')
         except FileExistsError:
