@@ -3,7 +3,6 @@ import pytest
 
 from file_system.signed_file_service import SignedFileSystem
 from config.config_parser import config
-from logs.logger import logger
 from tests.fixtures import create_file_for_testing, remove_last_created_file, get_name_of_last_created_file,\
                             create_signed_file_for_testing
 

@@ -1,6 +1,7 @@
 import pytest
 import os
 import hashlib
+from Crypto.Cipher import AES
 
 from config.config_parser import config
 
@@ -17,6 +18,19 @@ def create_signed_file_for_testing(request):
     yield
     if os.path.exists(request.param):
         os.remove(request.param)
+
+
+@pytest.fixture
+def create_encrypted_aes_file(request):
+    file_name = 'test_encrypted'
+    key = config()["ENCRYPTED_FILE_SYSTEM"]["AES_key"].encode()
+    cipher = AES.new(key, AES.MODE_EAX)
+    ciphertext, tag = cipher.encrypt_and_digest(request.param)
+    with open(file_name, 'wb') as f:
+        [f.write(x) for x in (cipher.nonce, tag, ciphertext)]
+    yield
+    if os.path.exists(file_name):
+        os.remove(file_name)
 
 
 @pytest.fixture

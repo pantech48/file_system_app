@@ -5,6 +5,7 @@ that encrypts files with AES encryption.
 from file_system.file_service import FileSystem
 from Crypto.Cipher import AES
 
+
 from file_system.utils import generate_filename
 from logs.logger import logger
 from config.config_parser import config
@@ -17,14 +18,13 @@ class EncryptedFileSystem(FileSystem):
     KEY = config()["ENCRYPTED_FILE_SYSTEM"]["AES_key"].encode()
 
     @staticmethod
-    def create_file(data: bytes = '') -> None:
+    def create_file(data: bytes = '') -> str:
         """
         Creates a file with the provided data and encrypt the data.
         :param data: Data to write to the file.
-        :return: None
+        :return: Name of the created file.
         """
         file_name = generate_filename()
-        logger.info(EncryptedFileSystem.KEY)
         key = EncryptedFileSystem.KEY
         cipher = AES.new(key, AES.MODE_EAX)
         ciphertext, tag = cipher.encrypt_and_digest(data)
@@ -32,6 +32,7 @@ class EncryptedFileSystem(FileSystem):
             with open(file_name, 'wb') as f:
                 [f.write(x) for x in (cipher.nonce, tag, ciphertext)]
             logger.info(f"Created file {file_name} with encrypted data.")
+            return file_name
         except FileExistsError:
             logger.exception(f"File {file_name} already exists.")
             raise
@@ -56,4 +57,3 @@ class EncryptedFileSystem(FileSystem):
         except FileNotFoundError:
             logger.exception(f"File {path} is not found.")
             raise
-
