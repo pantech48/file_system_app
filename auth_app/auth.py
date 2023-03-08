@@ -1,13 +1,13 @@
 from fastapi import FastAPI, HTTPException
-import asyncio
 import aiosqlite
 
-from .db_utils import db_create_user_table, db_create_user, db_update_user_password, db_delete_user, db_get_user, \
+from auth_app.db_utils import db_create_user_table, db_create_user, db_update_user_password, db_delete_user, db_get_user, \
     make_connection
-from .utils import hash_sha256_password
+from auth_app.utils import hash_sha256_password
+
 
 app = FastAPI()
-db_name = "auth.db"
+db_name = "auth_app.db"
 
 db_create_user_table(db_name)
 
@@ -44,4 +44,5 @@ async def get_user(username: str):
     async with aiosqlite.connect(db_name) as db:
         user = await db_get_user(db, username)
         return await user.fetchone()
+
 
