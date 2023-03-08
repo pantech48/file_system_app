@@ -25,8 +25,7 @@ def get_files_with_metadata():
 
 @app.route('/files/<filename>', methods=['GET'])
 def get_file_content_with_metadata(filename: str):
-    """Returns JSON with file content and metadata.
-    If file not found, returns 404 error."""
+    """Returns JSON with file content and metadata. If file not found, returns 404 error."""
     logger.info(f"Received request for file: {filename}")
     files_storage = FileSystem.FILE_STORAGE_PATH
     file_names = os.listdir(files_storage)

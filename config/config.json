@@ -5,7 +5,8 @@
   "UTILS": {
     "characters_for_generate_filename_function": "abcdefghijklmnopqrstuvwxyz0123456789",
     "length_of_generate_filename_func": 10,
-    "date_format": "%Y-%m-%d %H:%M:%S"
+    "date_format": "%Y-%m-%d %H:%M:%S",
+    "characters_for_salt": "abcdefghijklmnopqrstuvwxyz0123456789"
   },
   "LOGGER": {
     "logger_formatter": "%(asctime)s | %(name)s | %(levelname)s | %(message)s",
@@ -23,5 +24,8 @@
   },
   "ENCRYPTED_FILE_SYSTEM": {
     "AES_key": "SHY0bTKB7gLecaRv"
+  },
+  "AUTH": {
+    "secret_key": "iqs119ss5d8ikwm"
   }
 }

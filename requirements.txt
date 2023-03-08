@@ -3,3 +3,5 @@ flake8
 coverage
 flask
 pycryptodome
+fastapi
+aiosqlite
