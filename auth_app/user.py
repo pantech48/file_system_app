@@ -59,10 +59,13 @@ async def delete_user(payload: schemas.User, db: Session = Depends(get_db)):
 
 
 @app.get('/login')
-async def login(payload: schemas.User, credentials: HTTPBasicCredentials = Depends(security)):
+async def login(payload: schemas.User,
+                credentials: HTTPBasicCredentials = Depends(security),
+                db: Session = Depends(get_db)):
     """ This function is used to log a user with username and password """
     try:
-        token = jwt.encode({"username": credentials.username,
+        user = db.query(models.User).filter(models.User.username == credentials.username).first()
+        token = jwt.encode({"user_id": user.id,
                             "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},
                            config()["AUTH"]["secret_key"],
                            algorithm="HS256")
