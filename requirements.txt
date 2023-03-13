@@ -6,3 +6,7 @@ pycryptodome
 fastapi
 aiosqlite
 uvicorn
+docker
+docker-compose
+sqlalchemy
+pydantic

@@ -27,5 +27,13 @@
   },
   "AUTH": {
     "secret_key": "iqs119ss5d8ikwm"
+  },
+  "POSTGRES":
+  {
+    "user": "postgres",
+    "password": "postgres",
+    "port": 6500,
+    "db_name": "fastapi",
+    "host": "localhost"
   }
 }

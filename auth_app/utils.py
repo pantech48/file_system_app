@@ -17,4 +17,4 @@ def hash_sha256_password(password):
     salt = generate_salt()
     hash_obj.update(salt.encode('utf-8'))
     hash_obj.update(config()["AUTH"]["secret_key"].encode('utf-8'))
-    return hash_obj.hexdigest(), salt
+    return f"{hash_obj.hexdigest()}{salt}"
