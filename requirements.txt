@@ -11,3 +11,4 @@ docker-compose
 sqlalchemy
 pydantic
 pyjwt
+requests

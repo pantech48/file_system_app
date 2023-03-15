@@ -24,13 +24,13 @@ def token_required(f):
             os.chdir(user_folder)
         except (KeyError, jwt.ExpiredSignatureError):
             return "", 401, {"WWW-Authenticate": 'Basic realm="Authentication required"'}
-        return f(user_id, *args, **kwargs)
+        return f(*args, **kwargs)
     return wrapper
 
 
 @token_required
 @app.route('/files/list', methods=['GET'])
-def get_files_with_metadata(user_id: int):
+def get_files_with_metadata():
     """Returns JSON with list of files and their metadata."""
     file_names = os.listdir(FileSystem.FILE_STORAGE_PATH)
     files_path = [os.path.join(FileSystem.FILE_STORAGE_PATH, file) for file in file_names]
@@ -43,7 +43,7 @@ def get_files_with_metadata(user_id: int):
 
 @token_required
 @app.route('/files/<filename>', methods=['GET'])
-def get_file_content_with_metadata(user_id: int, filename: str):
+def get_file_content_with_metadata(filename: str):
     """Returns JSON with file content and metadata. If file not found, returns 404 error."""
     logger.info(f"Received request for file: {filename}")
     files_storage = FileSystem.FILE_STORAGE_PATH
@@ -64,7 +64,7 @@ def get_file_content_with_metadata(user_id: int, filename: str):
 
 @token_required
 @app.route('/files', methods=['POST'])
-def create_file(user_id: int):
+def create_file():
     """Creates file with content from request body. Returns JSON with filename."""
     logger.info("Received request for file creation.")
     if request.content_type != 'application/json':
@@ -86,7 +86,7 @@ def create_file(user_id: int):
 
 @token_required
 @app.route('/files/<filename>', methods=['DELETE'])
-def delete_file(user_id: int, filename: str):
+def delete_file(filename: str):
     """Deletes file with name from request body. Returns JSON with filename."""
     logger.info(f"Received request for file deletion: {filename}")
     files_storage = FileSystem.FILE_STORAGE_PATH
@@ -102,7 +102,7 @@ def delete_file(user_id: int, filename: str):
 
 @token_required
 @app.route('/change_file_dir', methods=['POST'])
-def change_file_directory(user_id: int):
+def change_file_directory():
     """ Changes file directory. Returns JSON with new path."""
     logger.info("Received request for file directory change.")
     if request.content_type != 'application/json':

@@ -35,5 +35,13 @@
     "port": 6500,
     "db_name": "fastapi",
     "host": "localhost"
+  },
+  "ROUTES": {
+    "local_host": "http://127.0.0.1:5000",
+    "sign_up": "/user",
+    "sign_in": "/login"
+  },
+  "CLIENT": {
+    "home_directory": "{client_home_directory}"
   }
 }
