@@ -10,6 +10,9 @@ from config.config_parser import config
 
 app = Flask(__name__)
 f_s = FileSystem()
+HOST = "localhost"
+PORT = 5001
+MEMORY_SIZE = 40960
 
 
 def token_required(f):
@@ -143,6 +146,17 @@ def change_file_directory():
         err_massage = f"Path {path} is not valid. {e}"
         logger.error(err_massage)
         abort(400, err_massage)
+
+
+@app.route('/server_info', methods=['GET'])
+def get_server_info():
+    """Returns JSON with server info."""
+    logger.info("Received request for server info.")
+    response = jsonify({'host': HOST,
+                        'port': PORT,
+                        'memory_size': MEMORY_SIZE})
+    logger.info(f"Returning server info: {response}")
+    return response, 200
 
 
 if __name__ == '__main__':
