@@ -1,6 +1,7 @@
 import requests
 import threading
 from getpass import getpass
+import os
 
 from client_requests import (
     sign_up,
@@ -9,7 +10,8 @@ from client_requests import (
     list_dir,
     upload_file,
     download_file,
-    get_file_metadata
+    get_file_metadata,
+    prepare_transaction_for_uploading
 )
 from logs.logger import logger
 
@@ -59,6 +61,9 @@ def change_password_flow() -> None:
 def upload_file_flow() -> None:
     """Flow for uploading a file."""
     filename = input("Enter the file path: ")
+    # send request to NameNode to allocate memory for the file and prepare transaction
+    prepare_transaction_for_uploading(filename)
+    # receive data_storages information from NameNode
 
     def target():
         try:
@@ -69,7 +74,6 @@ def upload_file_flow() -> None:
 
     thread = threading.Thread(target=target)
     thread.start()
-    thread.join()
 
 
 def download_file_flow() -> None:
@@ -106,22 +110,22 @@ def main() -> None:
     while True:
         try:
             main_menu()
-            choice = int(input("Enter your choice: "))
-            if choice == 1:
+            choice = input("Enter your choice: ")
+            if choice == "1":
                 sign_up_flow()
-            elif choice == 2:
+            elif choice == "2":
                 sign_in_flow()
-            elif choice == 3:
+            elif choice == "3":
                 change_password_flow()
-            elif choice == 4:
+            elif choice == "4":
                 upload_file_flow()
-            elif choice == 5:
+            elif choice == "5":
                 download_file_flow()
-            elif choice == 6:
+            elif choice == "6":
                 list_dir_flow()
-            elif choice == 7:
+            elif choice == "7":
                 get_file_metadata_flow()
-            elif choice == 8:
+            elif choice == "8":
                 break
             else:
                 logger.info("Invalid choice.")

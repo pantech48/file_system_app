@@ -1,6 +1,7 @@
 """ Module with request functions """
 import requests
 import sys
+import os
 
 sys.path.append(r"C:\\Users\\YPutrin\\Course_007\\file_system_app")
 
@@ -10,6 +11,7 @@ from logs.logger import logger
 
 LOCAL_HOST = config()["ROUTES"]["local_host"]
 TOKEN_FILE_PATH = config()["CLIENT"]["home_directory"]
+TOKEN_HEADER = config()["AUTH"]["jwt_token_header"]
 
 
 def sign_up(username: str, password: str, email: str) -> dict:
@@ -80,5 +82,15 @@ def change_password(username: str, password: str) -> dict:
 
 
 def jwt_token_header(token: str = None) -> dict:
-    return {"X-Api-Key": token}
+    return {TOKEN_HEADER: token}
 
+
+def prepare_transaction_for_uploading(path: str) -> dict:
+    """Prepare transaction for uploading a file."""
+    url = f"{LOCAL_HOST}/files/transaction"
+    payload = {
+        'path': path,
+        'size': os.path.getsize(path),
+        }
+    response = requests.post(url, json=payload)
+    return response.json()

@@ -26,7 +26,8 @@
     "AES_key": "SHY0bTKB7gLecaRv"
   },
   "AUTH": {
-    "secret_key": "iqs119ss5d8ikwm"
+    "secret_key": "iqs119ss5d8ikwm",
+    "jwt_token_header": "X-Api-Key"
   },
   "POSTGRES":
   {
@@ -43,5 +44,15 @@
   },
   "CLIENT": {
     "home_directory": "{client_home_directory}"
+  },
+  "DATA_STORAGE_1": {
+    "port": 6501,
+    "host": "localhost",
+    "memory_size": 40960
+  },
+  "DATA_STORAGE_2": {
+    "port": 6502,
+    "host": "localhost",
+    "memory_size": 40960
   }
 }
