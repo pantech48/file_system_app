@@ -13,3 +13,6 @@ pydantic
 pyjwt
 requests
 redis
+celery
+amqp
+rabbitmq
