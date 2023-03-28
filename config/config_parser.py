@@ -40,3 +40,4 @@ _config = read_json()
 _config["APP"]["working_directory"] = str(WORKING_DIR)
 _config["CLIENT"]["home_directory"] = TOKEN_FILE_PATH
 
+
