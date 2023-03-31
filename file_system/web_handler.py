@@ -3,12 +3,17 @@ import os
 import shutil
 from pathlib import Path
 import jwt
+from flasgger import Swagger, swag_from
+import sys
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from file_service import FileSystem
 from logs.logger import logger
 from config.config_parser import config
 
 app = Flask(__name__)
+swagger = Swagger(app)
 f_s = FileSystem()
 HOST = "localhost"
 PORT = 5001
@@ -34,7 +39,34 @@ def token_required(f):
 @token_required
 @app.route('/files/list', methods=['GET'])
 def get_files_with_metadata():
-    """Returns JSON with list of files and their metadata."""
+    """
+    Get the list of files with metadata.
+    ---
+    tags:
+      - Files
+    responses:
+      200:
+        description: List of files with metadata
+        schema:
+          type: object
+          properties:
+            file_names:
+              type: array
+              items:
+                type: string
+            files:
+              type: array
+              items:
+                type: object
+                properties:
+                  size:
+                    type: integer
+                    format: int64
+                  last_modified:
+                    type: string
+                  creation_time:
+                    type: string
+    """
     file_names = os.listdir(FileSystem.FILE_STORAGE_PATH)
     files_path = [os.path.join(FileSystem.FILE_STORAGE_PATH, file) for file in file_names]
     files = [f_s.get_metadata(file) for file in files_path]
@@ -47,7 +79,40 @@ def get_files_with_metadata():
 @token_required
 @app.route('/files/<filename>', methods=['GET'])
 def get_file_content_with_metadata(filename: str):
-    """Returns JSON with file content and metadata. If file not found, returns 404 error."""
+    """
+    Get file content and metadata by filename.
+    ---
+    tags:
+      - Files
+    parameters:
+      - name: filename
+        in: path
+        type: string
+        required: true
+        description: The name of the file
+    responses:
+      200:
+        description: File content and metadata
+        schema:
+          type: object
+          properties:
+            filename:
+              type: string
+            content:
+              type: string
+            metadata:
+              type: object
+              properties:
+                size:
+                  type: integer
+                  format: int64
+                last_modified:
+                  type: string
+                creation_time:
+                  type: string
+      404:
+        description: File not found
+    """
     logger.info(f"Received request for file: {filename}")
     files_storage = FileSystem.FILE_STORAGE_PATH
     file_names = os.listdir(files_storage)
@@ -67,6 +132,37 @@ def get_file_content_with_metadata(filename: str):
 
 @token_required
 @app.route('/files', methods=['POST'])
+@swag_from({
+    'tags': ['files'],
+    'summary': 'Create a new file',
+    'description': 'Creates a new file with content from the request body and returns a JSON with the filename.',
+    'parameters': [
+        {
+            'in': 'body',
+            'name': 'content',
+            'description': 'File content',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'content': {'type': 'string'}
+                }
+            }
+        }
+    ],
+    'responses': {
+        '201': {
+            'description': 'File created successfully',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'filename': {'type': 'string'}
+                }
+            }
+        },
+        '400': {'description': 'Bad request'}
+    }
+})
 def create_file():
     """Creates file with content from request body. Returns JSON with filename."""
     logger.info("Received request for file creation.")
